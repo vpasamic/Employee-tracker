@@ -81,7 +81,40 @@ async function addEmployee(){
 
 //view functions
 async function viewoptions(){
+    inquirer.prompt({
+        name:"types",
+        type:"list",
+        message:"What do you want to add",
+        choices:["Department","Role","Employee"]
+    }).then(function(answer){
+        switch(answer.types){
+            case "Department":
+                viewDepartment()
+                break;
+            case "Role":
+                viewRole()
+                break;
+            case "Employee":
+                viewEmployee()
+                break;
+        }
+            
+    })
     console.log("viewoptions")
+}
+
+async function viewDepartment(){
+    console.log("viewDepartment")
+    start()
+}
+
+async function viewRole(){
+    console.log("viewRole")
+    start()
+}
+
+async function viewEmployee(){
+    console.log("viewemployee")
     start()
 }
 

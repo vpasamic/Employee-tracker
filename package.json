@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/vpasamic/Employee-tracker#readme",
   "dependencies": {
-    "console.table": "file:node_modules/console.table",
-    "inquirer": "file:node_modules/inquirer",
-    "mysql": "file:node_modules/mysql"
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
   }
 }
