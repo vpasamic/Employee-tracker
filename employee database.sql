@@ -15,7 +15,7 @@ id integer auto_increment not null,
 title varchar(30) not null,
 salary decimal not null,
 department_id Integer not null,
-constraint fk_department_id foreign key (department_id) references department(id),
+foreign key (department_id) references department(id),
 primary key(id)
 );
 
@@ -25,8 +25,8 @@ id integer auto_increment not null,
 first_name varchar(30) not null,
 last_name varchar(30) not null,
 role_id integer not null,
-constraint fk_role_id FOREIGN KEY (role_id) REFERENCES role(id),
-manager_id integer ,
-constraint fk_manager_id FOREIGN KEY (manager_id) REFERENCES employee(id),
+constraint fk_role FOREIGN KEY (role_id) REFERENCES role(id),
+manager_id integer,
+constraint fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id),
 Primary key(id)
 );

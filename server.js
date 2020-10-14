@@ -65,8 +65,21 @@ async function addoptions(){
 
 
 async function addDepartment(){
-    
-    start()
+    inquirer.prompt({
+        type:"input",
+        message:"Which department are you adding?",
+        name:"department"
+    }).then(async function(answer){
+        await connection.query("Insert into department(name) values (?)", [answer.department],function(err,res){
+            if (err) throw err;
+        })
+        await connection.query("Select * From Department", function(err,res){
+            if (err) throw err;
+            console.table(res);
+            start()
+        })
+
+    })
 }
 
 async function addRole(){
@@ -110,27 +123,32 @@ async function viewoptions(){
 }
 
 async function viewDepartment(){
-    await connection.query("Select * From Department", function(err,res){
+    connection.query("Select * From Department", function(err,res){
         if (err) throw err;
         console.table(res);
+        start()
     })
-    await start()
+  
+    
 }
 
 async function viewRole(){
     await connection.query("Select * From Role", function(err,res){
         if (err) throw err;
         console.table(res);
+        start()
     })
-    await start()
+ 
 }
 
 async function viewEmployee(){
-    await connection.query("Select * From Employee", function(err,res){
+    let query = "Select * From Employee"
+    await connection.query(query, function(err,res){
         if (err) throw err;
         console.table(res);
+        start();
     })
-    await start()
+
 }
 
 async function updateoemployee(){
