@@ -20,7 +20,7 @@ function start(){
         name:"start",
         type:"list",
         message:"What do you want to do?",
-        choices:["Add","View","Update Employee"]
+        choices:["Add","View","Update Employee", "Exit"]
     }).then(function (answer){
         switch (answer.start){
             case "Add":
@@ -31,6 +31,9 @@ function start(){
                 break;
             case "Update Employee":
                 updateoemployee()
+                break;
+            case "Exit":
+                connection.end()
                 break;
         }
     }
@@ -84,8 +87,8 @@ async function viewoptions(){
     inquirer.prompt({
         name:"types",
         type:"list",
-        message:"What do you want to add",
-        choices:["Department","Role","Employee"]
+        message:"What do you want to view",
+        choices:["Department","Role","Employee","Back to Main"]
     }).then(function(answer){
         switch(answer.types){
             case "Department":
@@ -97,6 +100,9 @@ async function viewoptions(){
             case "Employee":
                 viewEmployee()
                 break;
+            case "Back to Main":
+                start()
+                break;
         }
             
     })
@@ -104,18 +110,27 @@ async function viewoptions(){
 }
 
 async function viewDepartment(){
-    console.log("viewDepartment")
-    start()
+    await connection.query("Select * From Department", function(err,res){
+        if (err) throw err;
+        console.table(res);
+    })
+    await start()
 }
 
 async function viewRole(){
-    console.log("viewRole")
-    start()
+    await connection.query("Select * From Role", function(err,res){
+        if (err) throw err;
+        console.table(res);
+    })
+    await start()
 }
 
 async function viewEmployee(){
-    console.log("viewemployee")
-    start()
+    await connection.query("Select * From Employee", function(err,res){
+        if (err) throw err;
+        console.table(res);
+    })
+    await start()
 }
 
 async function updateoemployee(){
