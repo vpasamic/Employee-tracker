@@ -65,7 +65,7 @@ async function addoptions(){
 
 
 async function addDepartment(){
-    console.log("adddepartment")
+    
     start()
 }
 
