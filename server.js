@@ -60,7 +60,6 @@ async function addoptions(){
         }
             
     })
-    console.log("addoptions")
 }
 
 
@@ -110,9 +109,40 @@ async function addRole(){
 
 
 async function addEmployee(){
-    console.log("addEmployee")
-    start()
+    inquirer.prompt([
+      {
+        name: "firstname",
+        type: "input",
+        message: "What's the employee's first name?",
+        
+      },
+      {
+        name: "lastname",
+        type: "input",
+        message: "What's the employee's last name?",
+       
+      },
+      {
+        name: "role",
+        type: "number",
+        message: "What's the employee's role by id?",
+      },
+      {
+        name: "manager",
+        type: "number",
+        message: "Who is the employee's manager(id)? if none leave empty",
+      }
+    ])
+    .then(async function(answer) {
+        await connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)", [answer.firstname, answer.lastname, answer.role, answer.manager], function(err, res) {
+            if (err) throw err;
+        });
+        await viewEmployee();
+       
+    });
 }
+
+
 
 
 
@@ -141,7 +171,6 @@ async function viewoptions(){
         }
             
     })
-    console.log("viewoptions")
 }
 
 async function viewDepartment(){
