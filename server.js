@@ -193,7 +193,7 @@ async function viewRole(){
 }
 
 async function viewEmployee(){
-    let query = "Select * From Employee"
+    let query = "SELECT first_name, last_name, title, salary FROM employee LEFT JOIN role ON employee.role_id = role.id"
     await connection.query(query, function(err,res){
         if (err) throw err;
         console.table(res);
@@ -202,9 +202,26 @@ async function viewEmployee(){
 
 }
 
+//updateemployee
 async function updateoemployee(){
-    console.log("updateemployee")
-    start()
-}
+    inquirer.prompt([
+      {
+        name: "employee",
+        type: "input",
+        message: "Employee's first name whose role you would like to update?"
+      },
 
-start()
+      {
+        name: "newrole",
+        type: "input",
+        message: "What role do you want to update to?"
+      }
+    ])
+    .then(async function(answer) {
+      await connection.query('UPDATE employee SET role_id=? WHERE first_name= ?',[answer.newrole, answer.employee],function(err, res) {
+        if (err) throw err;
+      });
+      await viewEmployee();
+    });
+};
+start();
